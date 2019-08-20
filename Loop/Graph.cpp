@@ -66,6 +66,7 @@ void Graph::paintEvent(QPaintEvent*)
 		{
 			graph[i][j]->setX(posx[i] + w);
 			graph[i][j]->setY(posy[j] + h);
+			graph[i][j]->setGeometry(graph[i][j]->getX(), graph[i][j]->getY(), 50, 50);
 		}
 	QStyleOption opt;
 	opt.init(this);

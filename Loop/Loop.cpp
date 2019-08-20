@@ -9,7 +9,7 @@ Loop::Loop(QWidget* parent)
 {
 	//ui.setupUi(this);
 	qDebug() << "Loop" << endl;
-	G = new Graph(300, 900, QString::number(++level));
+	G = new Graph(600, 900, QString::number(++level));
 	//G = new Graph(ui.widget->width(), ui.widget->height(), QString::number(++level), ui.widget);
 
 	//G->setGeometry(0, 0, ui.widget->width(), ui.widget->height());
@@ -24,11 +24,11 @@ Loop::Loop(QWidget* parent)
 
 void Loop::levelUp()
 {
+	_sleep(1000);
 	qDebug() << "levelUp" << endl;
 	//QMessageBox::warning(this, "a", "b");
 	delete G;
-	G = new Graph(ui.widget->width(), ui.widget->height(), QString::number(++level), ui.widget);
-	G->setGeometry(0, 0, 600, 880);
+	G = new Graph(600, 900, QString::number(++level));
 	G->show();
 	connect(G, &Graph::isComplete, this, &Loop::levelUp);
 	//update();

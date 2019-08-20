@@ -125,7 +125,6 @@ bool Corner::checkCorner(Corner* L, Corner* U, Corner* R, Corner* D)
 
 void Corner::paintEvent(QPaintEvent* )
 {
-	setGeometry(x, y, 50, 50);
 	QPainter painter(this);
 	qDebug() << "Corner::paintEvent" << endl;
 	//qDebug() << x << ' ' << y << endl;
@@ -146,5 +145,7 @@ void Corner::paintEvent(QPaintEvent* )
 void Corner::OnClicked()
 {
 	rotateCorner();
+	qDebug() << "OnClicked";
+	repaint();
 	emit beenClicked();
 }
