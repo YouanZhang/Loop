@@ -44,9 +44,19 @@ int& Corner::getX()
 	return x;
 }
 
+void Corner::setX(int _x)
+{
+	x = _x;
+}
+
 int& Corner::getY()
 {
 	return y;
+}
+
+void Corner::setY(int _y)
+{
+	y = _y;
 }
 
 int& Corner::getRot()
@@ -115,8 +125,9 @@ bool Corner::checkCorner(Corner* L, Corner* U, Corner* R, Corner* D)
 
 void Corner::paintEvent(QPaintEvent* )
 {
+	setGeometry(x, y, 50, 50);
 	QPainter painter(this);
-	//qDebug() << "Corner::paintEvent" << endl;
+	qDebug() << "Corner::paintEvent" << endl;
 	//qDebug() << x << ' ' << y << endl;
 	QMatrix matrix;
 	//qDebug() << qreal(rot);

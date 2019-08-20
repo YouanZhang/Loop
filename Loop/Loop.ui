@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>900</height>
+    <width>601</width>
+    <height>899</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,21 +20,11 @@
       <x>0</x>
       <y>0</y>
       <width>600</width>
-      <height>880</height>
+      <height>900</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout"/>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>600</width>
-     <height>23</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

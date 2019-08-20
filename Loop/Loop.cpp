@@ -7,11 +7,12 @@ static int level = 0;
 Loop::Loop(QWidget* parent)
 	: QMainWindow(parent)
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 	qDebug() << "Loop" << endl;
-	G = new Graph(ui.widget->width(), ui.widget->height(), QString::number(++level), ui.widget);
+	G = new Graph(300, 900, QString::number(++level));
+	//G = new Graph(ui.widget->width(), ui.widget->height(), QString::number(++level), ui.widget);
 
-	G->setGeometry(0, 0, 600, 880);
+	//G->setGeometry(0, 0, ui.widget->width(), ui.widget->height());
 	//QPalette pal(G->palette());
 	//pal.setColor(QPalette::Background, Qt::black);
 	//G->setAutoFillBackground(true);

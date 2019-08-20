@@ -17,25 +17,27 @@ Graph::Graph(int w,int h,QString level, QWidget* parent)
 	m = s.toInt();
 	for (int i = 0; i <= n + 1; i++)
 	{
-		posx[i] = (w - (n + 2) * 50) / 2 + i * 50;
+		posx[i] = i * 50;
 		qDebug() << posx[i];
 	}
 	for (int i = 0; i <= m + 1; i++)
 	{
-		posy[i] = (h - (m + 2) * 50) / 2 + i * 50;
+		posy[i] = i * 50;
 		qDebug() << posy[i];
 	}
 	int g;
 	for (int i = 0; i <= n + 1; i++)
 		for (int j = 0; j <= m + 1; j++)
 		{
+			int w = (width() - (n + 2) * 50) / 2;
+			int h = (height() - (m + 2) * 50) / 2;
 			if (i == 0 || j == 0 || i == n + 1 || j == m + 1)
-				graph[i][j] = new Corner(0, posx[i], posy[j], QPixmap(QString(":/image/image/transparent.png")), this);
+				graph[i][j] = new Corner(0, posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/transparent.png")), this);
 			else
 			{
 				in >> s;
 				g = s.toInt();
-				graph[i][j] = new Corner(g, posx[i], posy[j], QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+				graph[i][j] = new Corner(g, posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
 				//int rot = graph[i][j]->getRot();
 				//qDebug() << '!' << rot << endl;																		
 			}
@@ -56,6 +58,15 @@ Graph::Graph(int w,int h,QString level, QWidget* parent)
 
 void Graph::paintEvent(QPaintEvent*)
 {
+	qDebug() << "Graph::paintEvent" << endl;
+	int w = (width() - (n + 2) * 50) / 2;
+	int h = (height() - (m + 2) * 50) / 2;
+	for (int i = 0; i <= n + 1; i++)
+		for (int j = 0; j <= m + 1; j++)
+		{
+			graph[i][j]->setX(posx[i] + w);
+			graph[i][j]->setY(posy[j] + h);
+		}
 	QStyleOption opt;
 	opt.init(this);
 	QPainter p(this);

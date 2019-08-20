@@ -12,7 +12,6 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -24,27 +23,22 @@ public:
     QWidget *centralWidget;
     QWidget *widget;
     QVBoxLayout *verticalLayout;
-    QMenuBar *menuBar;
 
     void setupUi(QMainWindow *LoopClass)
     {
         if (LoopClass->objectName().isEmpty())
             LoopClass->setObjectName(QString::fromUtf8("LoopClass"));
-        LoopClass->resize(600, 900);
+        LoopClass->resize(601, 899);
         centralWidget = new QWidget(LoopClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         widget = new QWidget(centralWidget);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(0, 0, 600, 880));
+        widget->setGeometry(QRect(0, 0, 600, 900));
         verticalLayout = new QVBoxLayout(widget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         LoopClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(LoopClass);
-        menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 23));
-        LoopClass->setMenuBar(menuBar);
 
         retranslateUi(LoopClass);
 

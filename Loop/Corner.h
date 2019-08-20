@@ -22,7 +22,9 @@ private:
 public:
 	Corner(int,int,int,QPixmap&, QWidget* parent = NULL);
 	int& getX();
+	void setX(int);
 	int& getY();
+	void setY(int);
 	int& getRot();
 	bool& getConnectDirection(int);
 	int& getType();
