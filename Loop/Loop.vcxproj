@@ -113,10 +113,16 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blank.cpp" />
     <ClCompile Include="Corner.cpp" />
+    <ClCompile Include="FourCorner.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Loop.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OneCorner.cpp" />
+    <ClCompile Include="Straight.cpp" />
+    <ClCompile Include="ThreeCorner.cpp" />
+    <ClCompile Include="TwoCorner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Loop.h" />
@@ -138,6 +144,17 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets</IncludePath>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Blank.h" />
+    <ClInclude Include="FourCorner.h" />
+    <ClInclude Include="OneCorner.h" />
+    <ClInclude Include="Straight.h" />
+    <ClInclude Include="ThreeCorner.h" />
+    <ClInclude Include="TwoCorner.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

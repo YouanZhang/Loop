@@ -1,20 +1,20 @@
 #include "Corner.h"
 #include <QDebug>
 
-Corner::Corner(int _type, int _x, int _y, QPixmap& _icon, QWidget* parent)
+Corner::Corner(/*int _type, */int _x, int _y, QPixmap& _icon, QWidget* parent)
 	: QPushButton(parent)
 	, icon(_icon)
-	, rot(rand() % 4 * 90)
-	, type(_type)
+	, rot(/*rand() % 4 * 90*/0)
+	//, type(_type)
 	, x(_x)
 	, y(_y)
 {
-	qDebug() << "Corner" << endl;
+	/*qDebug() << "Corner" << endl;
 	for (int i=0;i<5;i++)
 		connectDirection[i] = 0;
 	for (int i=0;i<type;i++)
 		connectDirection[i] = 1;
-	if (type == 5) 
+	if (type == 5)
 	{
 		connectDirection[0] = 1;
 		connectDirection[1] = 0;
@@ -29,7 +29,7 @@ Corner::Corner(int _type, int _x, int _y, QPixmap& _icon, QWidget* parent)
 		connectDirection[2] = connectDirection[1];
 		connectDirection[1] = connectDirection[0];
 		connectDirection[0] = connectDirection[4];
-	}
+	}*/
 	connect(this, &Corner::clicked, this, &Corner::OnClicked);
 	//icon.scaled(QSize(100, 100));
 	setIconSize(icon.size());
@@ -39,19 +39,14 @@ Corner::Corner(int _type, int _x, int _y, QPixmap& _icon, QWidget* parent)
 	setGeometry(x, y, 50, 50);
 }
 
-int& Corner::getX()
-{
-	return x;
-}
-
 void Corner::setX(int _x)
 {
 	x = _x;
 }
 
-int& Corner::getY()
+int& Corner::getX()
 {
-	return y;
+	return x;
 }
 
 void Corner::setY(int _y)
@@ -59,19 +54,39 @@ void Corner::setY(int _y)
 	y = _y;
 }
 
+int& Corner::getY()
+{
+	return y;
+}
+
+void Corner::setRot(int _rot)
+{
+	rot = _rot;
+}
+
 int& Corner::getRot()
 {
 	return rot;
 }
 
-bool& Corner::getConnectDirection(int x)
+//void Corner::setType(int _type)
+//{
+//	type = _type;
+//}
+
+//int& Corner::getType()
+//{
+//	return type;
+//}
+
+bool& Corner::getConnectDirection(int direction)
 {
-	return connectDirection[x];
+	return connectDirection[direction];
 }
 
-int& Corner::getType()
+void Corner::setIcon(QPixmap _icon)
 {
-	return type;
+	icon = _icon;
 }
 
 QPixmap& Corner::getIcon()
@@ -82,7 +97,7 @@ QPixmap& Corner::getIcon()
 
 void Corner::rotateCorner()
 {
-	qDebug() << "Corner::rotateCorner"<< endl;
+	qDebug() << "Corner::rotateCorner" << endl;
 	qDebug() << x << ' ' << y << endl;
 	for (int i = 0; i < 5; i++) qDebug() << (int)connectDirection[i] << ' ';
 	qDebug() << endl;
@@ -100,30 +115,47 @@ void Corner::rotateCorner()
 	if (rot == 360) rot = 0;
 	update();
 }
+
 bool Corner::checkCorner(Corner* L, Corner* U, Corner* R, Corner* D)
 {
-	/*qDebug() << x << ' ' << y << endl;
+	qDebug() << x << ' ' << y << endl;
 	qDebug() << U->x << U->y << (int)U->connectDirection[0] << (int)U->connectDirection[1] << (int)U->connectDirection[2] << (int)U->connectDirection[3] << ' ';
 	qDebug() << L->x << L->y << (int)L->connectDirection[0] << (int)L->connectDirection[1] << (int)L->connectDirection[2] << (int)L->connectDirection[3] << ' ';
 	qDebug() << D->x << D->y << (int)D->connectDirection[0] << (int)D->connectDirection[1] << (int)D->connectDirection[2] << (int)D->connectDirection[3] << ' ';
-	qDebug() << R->x << R->y << (int)R->connectDirection[0] << (int)R->connectDirection[1] << (int)R->connectDirection[2] << (int)R->connectDirection[3] << ' ';*/
-	
+	qDebug() << R->x << R->y << (int)R->connectDirection[0] << (int)R->connectDirection[1] << (int)R->connectDirection[2] << (int)R->connectDirection[3] << ' ';
 	if (connectDirection[0])
 		if (U->connectDirection[2] == 0)
-			return 0;
+			return false;
 	if (connectDirection[1])
 		if (R->connectDirection[3] == 0)
-			return 0;
+			return false;
 	if (connectDirection[2])
 		if (D->connectDirection[0] == 0)
-			return 0;
+			return false;
 	if (connectDirection[3])
 		if (L->connectDirection[1] == 0)
-			return 0;
-	return 1;
+			return false;
+	return true;
+	/*if (getConnectDirection(0))
+		if (U->getConnectDirection(2) == 0)
+			return false;
+	qDebug() << "?0";
+	if (getConnectDirection(1))
+		if (R->getConnectDirection(3) == 0)
+			return false;
+	qDebug() << "?1";
+	if (getConnectDirection(2))
+		if (D->getConnectDirection(0) == 0)
+			return false;
+	qDebug() << "?2";
+	if (getConnectDirection(3))
+		if (L->getConnectDirection(1) == 0)
+			return false;
+	qDebug() << "?3";
+	return true;*/
 }
 
-void Corner::paintEvent(QPaintEvent* )
+void Corner::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	qDebug() << "Corner::paintEvent" << endl;
@@ -140,7 +172,6 @@ void Corner::paintEvent(QPaintEvent* )
 			//painter.drawPixmap(0, 0, icon);
 		//}
 }
-
 
 void Corner::OnClicked()
 {

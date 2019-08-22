@@ -8,37 +8,38 @@
 class Corner : public QPushButton
 {
 	Q_OBJECT
-private:
-	bool connectDirection[5];
-	int x, y;
-	int type;
+protected:
+	int x;
+	int y;
 	int rot;
-	//0 -> U
-	//1 -> R
-	//2 -> D
-	//3 -> L
+	//int type;
 	QPixmap icon;
 
 public:
-	Corner(int,int,int,QPixmap&, QWidget* parent = NULL);
-	int& getX();
+	Corner(/*int,*/int,int,QPixmap&, QWidget* parent = NULL);
 	void setX(int);
-	int& getY();
+	int& getX();
 	void setY(int);
+	int& getY();
+	void setRot(int);
 	int& getRot();
+	//void setType(int);
+	//int& getType();
+	virtual void setConnectDirection() {};
 	bool& getConnectDirection(int);
-	int& getType();
+	void setIcon(QPixmap);
 	QPixmap& getIcon();
 	void rotateCorner();
 	bool checkCorner(Corner*, Corner*, Corner*, Corner*);
 	//void painter(QPainter*);
 
 protected:
+	bool connectDirection[5];
 	void paintEvent(QPaintEvent* );
-
-signals:
-	void beenClicked();
 
 public slots:
 	void OnClicked();
+
+signals:
+	void beenClicked();
 };

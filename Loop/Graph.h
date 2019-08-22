@@ -8,6 +8,12 @@
 #include <QEvent>
 #include <QMatrix>
 #include "Corner.h"
+#include "Blank.h"
+#include "OneCorner.h"
+#include "TwoCorner.h"
+#include "ThreeCorner.h"
+#include "FourCorner.h"
+#include "Straight.h"
 
 class Graph : public QWidget
 {

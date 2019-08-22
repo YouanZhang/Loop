@@ -32,12 +32,32 @@ Graph::Graph(int w,int h,QString level, QWidget* parent)
 			int w = (width() - (n + 2) * 50) / 2;
 			int h = (height() - (m + 2) * 50) / 2;
 			if (i == 0 || j == 0 || i == n + 1 || j == m + 1)
-				graph[i][j] = new Corner(0, posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/transparent.png")), this);
+				graph[i][j] = new Blank(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/transparent.png")), this);
 			else
 			{
 				in >> s;
 				g = s.toInt();
-				graph[i][j] = new Corner(g, posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+				switch (g)
+				{
+				case 1:
+					graph[i][j] = new OneCorner(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+					break;
+				case 2:
+					graph[i][j] = new TwoCorner(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+					break;
+				case 3:
+					graph[i][j] = new ThreeCorner(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+					break;
+				case 4:
+					graph[i][j] = new FourCorner(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+					break;
+				case 5:
+					graph[i][j] = new Straight(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
+					break;
+				default:
+					break;
+				}
+				
 				//int rot = graph[i][j]->getRot();
 				//qDebug() << '!' << rot << endl;																		
 			}
@@ -51,7 +71,7 @@ Graph::Graph(int w,int h,QString level, QWidget* parent)
 					 << (int)graph[i][j]->getConnectDirection(2) 
 					 << (int)graph[i][j]->getConnectDirection(3) 
 					 << graph[i][j]->getRot()
-					 << graph[i][j]->getType()
+					 //<< graph[i][j]->getType()
 					 << ' ';
 		}
 }
