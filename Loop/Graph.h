@@ -27,10 +27,10 @@ private:
 	int posy[MAX_SIZE];
 
 public:
-	Graph(int,int,QString, QWidget *parent=nullptr);
+	Graph(int, int, QString, QWidget* parent = nullptr);
 
 protected:
-	void paintEvent(QPaintEvent* );
+	void paintEvent(QPaintEvent*);
 
 public slots:
 	void checkGraph();

@@ -16,7 +16,7 @@ protected:
 	QPixmap icon;
 
 public:
-	Corner(/*int,*/int,int,QPixmap&, QWidget* parent = NULL);
+	Corner(/*int,*/int, int, QPixmap&, QWidget* parent = NULL);
 	void setX(int);
 	int& getX();
 	void setY(int);
@@ -35,7 +35,7 @@ public:
 
 protected:
 	bool connectDirection[5];
-	void paintEvent(QPaintEvent* );
+	void paintEvent(QPaintEvent*);
 
 public slots:
 	void OnClicked();

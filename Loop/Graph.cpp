@@ -2,12 +2,16 @@
 #include <QDebug>
 #include <QStyleOption>
 
-Graph::Graph(int w,int h,QString level, QWidget* parent)
+Graph::Graph(int w, int h, QString level, QWidget* parent)
 	: QWidget(parent)
 {
-	setStyleSheet("background-color: rgb("+QString::number(rand()%56+200)+"," + QString::number(rand() % 56+200) + "," + QString::number(rand() % 56+200) + ");");
+	setStyleSheet("background-color: rgb(" + QString::number(rand() % 56 + 200) + "," + QString::number(rand() % 56 + 200) + "," + QString::number(rand() % 56 + 200) + ");");
 	qDebug() << "Graph" << endl;
-	QFile file(":/level/level/"+level);
+	if (level <= 10) 
+	{
+
+	}
+	QFile file(":/level/level/" + level);
 	file.open(QIODevice::ReadOnly | QIODevice::Text);
 	QTextStream in(&file);
 	QString s;
@@ -57,22 +61,22 @@ Graph::Graph(int w,int h,QString level, QWidget* parent)
 				default:
 					break;
 				}
-				
+
 				//int rot = graph[i][j]->getRot();
 				//qDebug() << '!' << rot << endl;																		
 			}
 			connect(graph[i][j], &Corner::beenClicked, this, &Graph::checkGraph);
 		}
-	for (int i=1;i<=n;i++)
+	for (int i = 1; i <= n; i++)
 		for (int j = 1; j <= m; j++)
 		{
-			qDebug() << (int)graph[i][j]->getConnectDirection(0) 
-					 << (int)graph[i][j]->getConnectDirection(1) 
-					 << (int)graph[i][j]->getConnectDirection(2) 
-					 << (int)graph[i][j]->getConnectDirection(3) 
-					 << graph[i][j]->getRot()
-					 //<< graph[i][j]->getType()
-					 << ' ';
+			qDebug() << (int)graph[i][j]->getConnectDirection(0)
+				<< (int)graph[i][j]->getConnectDirection(1)
+				<< (int)graph[i][j]->getConnectDirection(2)
+				<< (int)graph[i][j]->getConnectDirection(3)
+				<< graph[i][j]->getRot()
+				//<< graph[i][j]->getType()
+				<< ' ';
 		}
 }
 
@@ -92,9 +96,9 @@ void Graph::paintEvent(QPaintEvent*)
 	opt.init(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-//	QPainter painter(this);
-//	painter.drawPixmap(0, 0, QPixmap(":/Loop/image/timg.jfif"));
-//	//painter.background(":/Loop/image/timg.jfif");
+	//	QPainter painter(this);
+	//	painter.drawPixmap(0, 0, QPixmap(":/Loop/image/timg.jfif"));
+	//	//painter.background(":/Loop/image/timg.jfif");
 }
 
 void Graph::checkGraph()

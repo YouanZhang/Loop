@@ -13,6 +13,6 @@ private:
 protected:
 	virtual void setConnectDirection();
 	//bool checkCorner(Corner*, Corner*, Corner*, Corner*);
-public:	
+public:
 	Blank(int, int, QPixmap&, QWidget* parent = NULL);
 };
