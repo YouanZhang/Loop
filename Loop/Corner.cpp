@@ -79,6 +79,11 @@ int& Corner::getRot()
 //	return type;
 //}
 
+void Corner::setConnectDirection(int direction, bool statue)
+{
+	connectDirection[direction] = statue;
+}
+
 bool& Corner::getConnectDirection(int direction)
 {
 	return connectDirection[direction];

@@ -9,7 +9,7 @@ Loop::Loop(QWidget* parent)
 {
 	//ui.setupUi(this);
 	qDebug() << "Loop" << endl;
-	QFile progress(":/progress/progress/progress");
+	QFile progress("progress/progress");
 	progress.open(QIODevice::ReadOnly | QIODevice::Text);
 	QTextStream in(&progress);
 	QString s;

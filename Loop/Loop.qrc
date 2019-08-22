@@ -8,9 +8,4 @@
         <file>image/5.png</file>
         <file>image/transparent.png</file>
     </qresource>
-    <qresource prefix="/level">
-        <file>level/1</file>
-        <file>level/2</file>
-        <file>level/3</file>
-    </qresource>
 </RCC>

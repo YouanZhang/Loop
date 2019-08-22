@@ -4,14 +4,17 @@
 
 Graph::Graph(int w, int h, QString level, QWidget* parent)
 	: QWidget(parent)
+	, graph()
+	, posx()
+	, posy()
 {
 	setStyleSheet("background-color: rgb(" + QString::number(rand() % 56 + 200) + "," + QString::number(rand() % 56 + 200) + "," + QString::number(rand() % 56 + 200) + ");");
 	qDebug() << "Graph" << endl;
-	if (level <= 10) 
-	{
 
-	}
-	QFile file(":/level/level/" + level);
+	QFileInfo f("level/" + level);
+	if (!f.exists()) createGraph(level);
+
+	QFile file("level/" + level);
 	file.open(QIODevice::ReadOnly | QIODevice::Text);
 	QTextStream in(&file);
 	QString s;
@@ -22,12 +25,12 @@ Graph::Graph(int w, int h, QString level, QWidget* parent)
 	for (int i = 0; i <= n + 1; i++)
 	{
 		posx[i] = i * 50;
-		qDebug() << posx[i];
+		/*qDebug() << posx[i];*/
 	}
 	for (int i = 0; i <= m + 1; i++)
 	{
 		posy[i] = i * 50;
-		qDebug() << posy[i];
+		/*qDebug() << posy[i];*/
 	}
 	int g;
 	for (int i = 0; i <= n + 1; i++)
@@ -41,8 +44,12 @@ Graph::Graph(int w, int h, QString level, QWidget* parent)
 			{
 				in >> s;
 				g = s.toInt();
+				qDebug() << g;
 				switch (g)
 				{
+				case 0:
+					graph[i][j] = new Blank(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/transparent.png")), this);
+					break;
 				case 1:
 					graph[i][j] = new OneCorner(posx[i] + w, posy[j] + h, QPixmap(QString(":/image/image/" + QString::number(g) + ".png")), this);
 					break;
@@ -80,6 +87,49 @@ Graph::Graph(int w, int h, QString level, QWidget* parent)
 		}
 }
 
+void Graph::createGraph(QString level)
+{
+	qDebug() << "createGraph";
+	QFile file("level/" + level);
+	file.open(QIODevice::ReadWrite | QIODevice::Text);
+	QTextStream out(&file);
+	int n = min(level.toInt(),15);
+	int m = min(level.toInt(),10);
+	bool g[MAX_SIZE][MAX_SIZE][4] = { 0 };
+	for (int i=0;i<n;i++)
+		for (int j = 0; j < m; j++) 
+		{
+			for (int k = 0; k < 4; k++)
+			{
+				if (i + movex[k]<0 || i + movex[k]>n - 1 || j + movey[k]<0 || j + movey[k]>m - 1 || g[i][j][k]) continue;
+				if (rand() < 32767 * extendedProbability)
+				{/*
+					qDebug() << i << j << k;*/
+					g[i][j][k] = 1;
+					g[i + movex[k]][j + movey[k]][(k + 2) % 4] = 1;
+				}
+			}
+		}
+	out << n << ' ' << m << endl;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			int t = 0;
+			for (int k = 0; k < 4; k++) t += ((g[i][j][k]?1:0) << k);
+			/*qDebug() 
+				<< '!'<<  (g[i][j][0] ? 1 : 0)
+				<< ' ' << (g[i][j][1] ? 1 : 0) 
+				<< ' ' << (g[i][j][2] ? 1 : 0) 
+				<< ' ' << (g[i][j][3] ? 1 : 0) << '!';
+			qDebug() << t << ' ';*/
+			out << type[t] << ' ';
+		}
+		out << endl;
+	}
+	file.close();
+}
+
 void Graph::paintEvent(QPaintEvent*)
 {
 	qDebug() << "Graph::paintEvent" << endl;
@@ -88,6 +138,8 @@ void Graph::paintEvent(QPaintEvent*)
 	for (int i = 0; i <= n + 1; i++)
 		for (int j = 0; j <= m + 1; j++)
 		{
+			if (graph[i][j] == nullptr)
+				qDebug() << "!" << i << ' ' << j;
 			graph[i][j]->setX(posx[i] + w);
 			graph[i][j]->setY(posy[j] + h);
 			graph[i][j]->setGeometry(graph[i][j]->getX(), graph[i][j]->getY(), 50, 50);

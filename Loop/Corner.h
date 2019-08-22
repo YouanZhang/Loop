@@ -14,8 +14,11 @@ protected:
 	int rot;
 	//int type;
 	QPixmap icon;
+	bool connectDirection[5];
+	void paintEvent(QPaintEvent*);
 
 public:
+	Corner() {};
 	Corner(/*int,*/int, int, QPixmap&, QWidget* parent = NULL);
 	void setX(int);
 	int& getX();
@@ -26,16 +29,13 @@ public:
 	//void setType(int);
 	//int& getType();
 	virtual void setConnectDirection() {};
+	void setConnectDirection(int, bool);
 	bool& getConnectDirection(int);
 	void setIcon(QPixmap);
 	QPixmap& getIcon();
 	void rotateCorner();
 	bool checkCorner(Corner*, Corner*, Corner*, Corner*);
 	//void painter(QPainter*);
-
-protected:
-	bool connectDirection[5];
-	void paintEvent(QPaintEvent*);
 
 public slots:
 	void OnClicked();
