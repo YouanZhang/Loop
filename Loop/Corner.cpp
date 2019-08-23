@@ -4,7 +4,7 @@
 Corner::Corner(/*int _type, */int _x, int _y, QPixmap& _icon, QWidget* parent)
 	: QPushButton(parent)
 	, icon(_icon)
-	, rot(/*rand() % 4 * 90*/0)
+	, rot(0)
 	//, type(_type)
 	, x(_x)
 	, y(_y)
@@ -100,34 +100,38 @@ QPixmap& Corner::getIcon()
 	return icon;
 }
 
+// Rotate the grid
 void Corner::rotateCorner()
 {
-	qDebug() << "Corner::rotateCorner" << endl;
+	/*qDebug() << "Corner::rotateCorner" << endl;
 	qDebug() << x << ' ' << y << endl;
 	for (int i = 0; i < 5; i++) qDebug() << (int)connectDirection[i] << ' ';
-	qDebug() << endl;
+	qDebug() << endl;*/
 
+	// Clockwise rotation
 	connectDirection[4] = connectDirection[3];
 	connectDirection[3] = connectDirection[2];
 	connectDirection[2] = connectDirection[1];
 	connectDirection[1] = connectDirection[0];
 	connectDirection[0] = connectDirection[4];
 
-	for (int i = 0; i < 5; i++) qDebug() << (int)connectDirection[i] << ' ';
-	qDebug() << endl;
+	/*for (int i = 0; i < 5; i++) qDebug() << (int)connectDirection[i] << ' ';
+	qDebug() << endl;*/
 
 	rot += 90;
 	if (rot == 360) rot = 0;
 	update();
 }
 
+// Determine the grid is successfully connected to the surrounding
 bool Corner::checkCorner(Corner* L, Corner* U, Corner* R, Corner* D)
 {
-	qDebug() << x << ' ' << y << endl;
+	/*qDebug() << x << ' ' << y << endl;
 	qDebug() << U->x << U->y << (int)U->connectDirection[0] << (int)U->connectDirection[1] << (int)U->connectDirection[2] << (int)U->connectDirection[3] << ' ';
 	qDebug() << L->x << L->y << (int)L->connectDirection[0] << (int)L->connectDirection[1] << (int)L->connectDirection[2] << (int)L->connectDirection[3] << ' ';
 	qDebug() << D->x << D->y << (int)D->connectDirection[0] << (int)D->connectDirection[1] << (int)D->connectDirection[2] << (int)D->connectDirection[3] << ' ';
-	qDebug() << R->x << R->y << (int)R->connectDirection[0] << (int)R->connectDirection[1] << (int)R->connectDirection[2] << (int)R->connectDirection[3] << ' ';
+	qDebug() << R->x << R->y << (int)R->connectDirection[0] << (int)R->connectDirection[1] << (int)R->connectDirection[2] << (int)R->connectDirection[3] << ' ';*/
+
 	if (connectDirection[0])
 		if (U->connectDirection[2] == 0)
 			return false;
@@ -160,10 +164,12 @@ bool Corner::checkCorner(Corner* L, Corner* U, Corner* R, Corner* D)
 	return true;*/
 }
 
+// paintEvent
+// Paint the icon
 void Corner::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
-	qDebug() << "Corner::paintEvent" << endl;
+	/*qDebug() << "Corner::paintEvent" << endl;*/
 	//qDebug() << x << ' ' << y << endl;
 	QMatrix matrix;
 	//qDebug() << qreal(rot);
@@ -178,10 +184,17 @@ void Corner::paintEvent(QPaintEvent*)
 		//}
 }
 
+// Handling events where the grid is clicked
 void Corner::OnClicked()
 {
+
+	// When the grid is clicked, rotate it
 	rotateCorner();
-	qDebug() << "OnClicked";
+	/*qDebug() << "OnClicked";*/
+
+	// Repaint the icon
 	repaint();
+
+	// Send signal
 	emit beenClicked();
 }

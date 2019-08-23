@@ -44,7 +44,7 @@ protected:
 	void paintEvent(QPaintEvent*);
 
 public slots:
-	void checkGraph();
+	bool checkGraph();
 signals:
-	void isComplete();
+	void isCompleted();
 };
